@@ -1,0 +1,48 @@
+{% extends 'backend/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Create Product {% endblock %}
+
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Create Product</h1>
+        <a href="{% url 'product:create.product' %}" class="float-right btn btn-primary">All Product</a>
+    </div>
+
+
+    <script>
+    var varients = {{ variants|safe }}
+    console.log(typeof varients)
+    </script>
+
+    <div id="root">
+        <CreateProduct id="variants" data-variants="{{ variants|safe }}"></CreateProduct>
+    </div>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% comment %} {{form | crispy}} {% endcomment %}
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" name="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Product Name">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" name="sku" class="form-label">Product SKU</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Product Name">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" name="description" class="form-label">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Media</label> <br>
+            <input type="file" class="form-control" id="inputGroupFile02">
+            {% comment %} <label class="input-group-text" for="inputGroupFile02">Upload</label> {% endcomment %}
+        </div>
+
+        <div>
+            <button class="btn btn-info bg-black" type="submit">Save</button> <button class="btn btn-secondary bg-black" type="submit">Cancel</button>
+        </div>
+    </form> 
+
+{% endblock %}
